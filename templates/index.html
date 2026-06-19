@@ -1,0 +1,152 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Researchify (Research made Simple)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/style.css">
+  </head>
+  <body>
+    <div class="completion-flash" id="completionFlash"></div>
+
+    <div class="app-shell">
+      <header class="topbar">
+        <a class="brand" href="/" aria-label="Research Engine home">
+          <span class="brand-mark"></span>
+          <span>Researchify <span style="font-size: 0.6em; font-weight: 500; opacity: 0.7; margin-left: 4px;">(Research made Simple)</span></span>
+        </a>
+        <div class="topbar-meta">
+          <span class="connection-status" id="connectionStatus">
+            <span class="connection-dot"></span>
+            <span>Checking backend</span>
+          </span>
+          <span class="meta-label">Runs</span>
+          <span id="runCount">0</span>
+        </div>
+      </header>
+
+      <aside class="sidebar" id="sidebar">
+        <section class="panel-section">
+          <div class="section-kicker">Pipeline</div>
+          <ol class="timeline" id="timeline">
+            <li class="timeline-step is-idle" data-step="1">
+              <span class="node-icon" data-lucide="search"></span>
+              <div class="step-copy">
+                <span class="step-label">Search Agent</span>
+                <span class="step-status">Idle</span>
+              </div>
+              <span class="step-indicator"></span>
+            </li>
+            <li class="timeline-step is-idle" data-step="2">
+              <span class="node-icon" data-lucide="globe"></span>
+              <div class="step-copy">
+                <span class="step-label">Reader Agent</span>
+                <span class="step-status">Idle</span>
+              </div>
+              <span class="step-indicator"></span>
+            </li>
+            <li class="timeline-step is-idle" data-step="3">
+              <span class="node-icon" data-lucide="edit-3"></span>
+              <div class="step-copy">
+                <span class="step-label">Writer</span>
+                <span class="step-status">Idle</span>
+              </div>
+              <span class="step-indicator"></span>
+            </li>
+            <li class="timeline-step is-idle" data-step="4">
+              <span class="node-icon" data-lucide="check-circle"></span>
+              <div class="step-copy">
+                <span class="step-label">Critic</span>
+                <span class="step-status">Idle</span>
+              </div>
+              <span class="step-indicator"></span>
+            </li>
+          </ol>
+        </section>
+
+        <section class="metrics">
+          <div class="metric-row">
+            <span>Elapsed</span>
+            <strong id="elapsedTime">00:00</strong>
+          </div>
+          <div class="metric-row">
+            <span>Status</span>
+            <strong id="runStatus">Idle</strong>
+          </div>
+        </section>
+
+        <details class="history" open>
+          <summary>Run History</summary>
+          <ul id="historyList">
+            <li class="empty-history">No runs yet</li>
+          </ul>
+        </details>
+      </aside>
+
+      <main class="main-panel">
+        <section class="topic-zone" id="topicZone">
+          <form class="research-form" id="researchForm">
+            <div class="input-wrap">
+              <input id="topicInput" name="topic" type="text" autocomplete="off" placeholder="Enter a research topic..." maxlength="220">
+              <span class="char-count" id="charCount">0</span>
+            </div>
+            <button class="primary-action" id="submitButton" type="submit">
+              <span>Research</span>
+              <span data-lucide="arrow-right"></span>
+            </button>
+          </form>
+          <div class="input-hint">e.g. Quantum computing breakthroughs 2024</div>
+        </section>
+
+        <section class="terminal-zone">
+          <div class="zone-header">
+            <span>Live Agent Output</span>
+            <span id="streamLabel">Awaiting topic</span>
+          </div>
+          <div class="terminal" id="terminal" aria-live="polite">
+            <div class="terminal-empty">Pipeline output will stream here.</div>
+          </div>
+        </section>
+
+        <section class="report-zone" id="reportZone" aria-hidden="true">
+          <div class="zone-header report-actions-header">
+            <span>Final Report</span>
+            <div class="report-actions">
+              <button class="secondary-action" id="copyReport" type="button">
+                <span data-lucide="copy"></span>
+                <span>Copy Report</span>
+              </button>
+              <button class="secondary-action" id="downloadReport" type="button">
+                <span data-lucide="download"></span>
+                <span>Download .md</span>
+              </button>
+              <button class="secondary-action" id="newResearch" type="button">
+                <span data-lucide="refresh-cw"></span>
+                <span>New Research</span>
+              </button>
+            </div>
+          </div>
+          <article class="markdown-body" id="reportContent"></article>
+          <aside class="critic-box" id="criticBox">
+            <div class="critic-header" id="criticHeader">
+              <div class="critic-label">Critic Review</div>
+              <button type="button" class="critic-toggle" id="toggleCritic" aria-label="Toggle Critic Review">
+                <span data-lucide="chevron-up" id="criticToggleIcon"></span>
+              </button>
+            </div>
+            <div class="critic-content" id="criticContent">
+              <pre id="criticFeedback"></pre>
+            </div>
+          </aside>
+        </section>
+      </main>
+    </div>
+
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script src="/static/app.js"></script>
+  </body>
+</html>
